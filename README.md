@@ -20,6 +20,15 @@ ClickableCaptcha是一个使用**SkiaSharp**类库的可点击图形验证码，
 
 ## 截图
 
+### 桌面浏览器
+
+![image](screenshot/pc.png)
+
+### 手机效果
+
+![image](screenshot/normal.png)
+![image](screenshot/dysopsia.png)
+
 ## 自定义
 
 前端的宽高是根据返回的图片大小在css中硬编码的，如需要修改网格数量或者尺寸，请务必修改前端css代码中的样式。
