@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>人机验证</title>
+    <style type="text/css">
+        *,
+        :after,
+        :before {
+            box-sizing: border-box;
+        }
+
+        .flex-col-start-center {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .flex-row-between-center {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .position-relative {
+            position: relative;
+        }
+
+        .captcha {
+            width: 280px;
+            height: 308px;
+            border: 1px solid #ccc;
+        }
+
+            .captcha img {
+                width: 100%;
+                height: 100%;
+                object-fit: fill;
+            }
+
+        .captcha-toolbar {
+            width: 280px;
+            margin-top: 8px;
+        }
+
+        .captcha-title {
+            width: 280px;
+            color: #3082bd;
+        }
+
+        .action {
+            width: 280px;
+            margin-top: 35px;
+        }
+
+            .action button {
+                width: 100%;
+            }
+
+                .action button:first-child {
+                    margin-right: 2px;
+                }
+
+                .action button:last-child {
+                    margin-right: 2px;
+                }
+
+        .btn {
+            background-color: #3082bd;
+            color: #ffffff;
+            line-height: 2.3;
+            position: relative;
+            display: inline-block;
+            font-weight: 400;
+            outline: 0;
+            white-space: nowrap;
+            text-align: center;
+            cursor: pointer;
+            transition: all .3s cubic-bezier(.645, .045, .355, 1);
+            border: 1px solid transparent;
+            border-radius: 4px;
+            -webkit-user-select: none;
+            user-select: none;
+            touch-action: manipulation;
+        }
+
+        .btn-link {
+            color: #999999;
+            border-color: transparent;
+            background: 0 0;
+            box-shadow: none;
+        }
+
+        .btn-cancel {
+            border: 1px solid #3082bd;
+            background-color: #ffffff;
+            color: #3082bd;
+        }
+
+        .btn, .captcha-title svg {
+            vertical-align: middle;
+        }
+
+        .ripple-span {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #ff7e00;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+    <noscript>
+        You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root">
+        <div class="flex-col-start-center">
+            <div class="captcha-title">
+                <h4>
+                    <svg viewBox="0 0 1024 1024" focusable="false" width="1.5em" height="1.5em">
+                        <path d="M717.12 274H762c82.842 0 150 67.158 150 150v200c0 82.842-67.158 150-150 150H262c-82.842 0-150-67.158-150-150V424c0-82.842 67.158-150 150-150h44.88l-18.268-109.602c-4.086-24.514 12.476-47.7 36.99-51.786 24.514-4.086 47.7 12.476 51.786 36.99l20 120c0.246 1.472 0.416 2.94 0.516 4.398h228.192c0.1-1.46 0.27-2.926 0.516-4.398l20-120c4.086-24.514 27.272-41.076 51.786-36.99 24.514 4.086 41.076 27.272 36.99 51.786L717.12 274zM308 484v40c0 24.852 20.148 45 45 45S398 548.852 398 524v-40c0-24.852-20.148-45-45-45S308 459.148 308 484z m318 0v40c0 24.852 20.148 45 45 45S716 548.852 716 524v-40c0-24.852-20.148-45-45-45S626 459.148 626 484zM312 912c-24.852 0-45-20.148-45-45S287.148 822 312 822h400c24.852 0 45 20.148 45 45S736.852 912 712 912H312z"
+                              fill="#3082bd"></path>
+                    </svg>
+                    确定你不是机器人
+                </h4>
+            </div>
+            <div id="clickable-captcha" class="captcha position-relative">
+                <!--正常模式-->
+                <img title="根据图片中的提示点击相应位置" alt="图形验证码" src="/captcha">
+                <!--色盲模式-->
+                <!--<img title="根据图片中的提示点击相应位置" alt="图形验证码" src="/captcha?dysopsia=true">-->
+            </div>
+            <div class="captcha-toolbar flex-row-between-center">
+                <button type="button" class="btn btn-link" onclick="refresh()">
+                    <svg viewBox="64 64 896 896" focusable="false" width="1.2em" height="1.2em" fill="currentColor"
+                         aria-hidden="true">
+                        <path d="M832 512a32 32 0 0 0-32 32c0 158.784-129.216 288-288 288s-288-129.216-288-288 129.216-288 288-288c66.208 0 129.536 22.752 180.608 64H608a32 32 0 0 0 0 64h160a32 32 0 0 0 32-32V192a32 32 0 0 0-64 0v80.96A350.464 350.464 0 0 0 512 192C317.92 192 160 349.92 160 544s157.92 352 352 352 352-157.92 352-352a32 32 0 0 0-32-32">
+                        </path>
+                    </svg>
+                    换一张
+                </button>
+                <button type="button" class="btn btn-link" onclick="undoRipple()">
+                    <svg viewBox="64 64 896 896" focusable="false" width="1.2em" height="1.2em" fill="currentColor"
+                         aria-hidden="true">
+                        <path d="M596.16 284.064H258.56l101.376-101.44a31.968 31.968 0 1 0-45.248-45.216L178.56 273.504c-11.904 11.872-18.496 27.84-18.56 44.8a63.04 63.04 0 0 0 18.56 45.28l136.128 136.16a31.904 31.904 0 0 0 45.248 0 31.968 31.968 0 0 0 0-45.248l-106.752-106.496H596.16c114.88 0 208.32 93.312 208.32 208s-93.44 208-208.32 208h-223.36a32 32 0 0 0 0 64h223.36c150.144 0 272.32-122.016 272.32-272 0-149.984-122.176-272-272.32-272">
+                        </path>
+                    </svg>
+                    撤销
+                </button>
+            </div>
+            <div class="action flex-row-between-center">
+                <button type="button" class="btn btn-cancel" onclick="removeRipples()">取消</button>
+                <button type="button" class="btn" onclick="done()">确认</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.js"></script>
+    <script type="text/javascript">
+        const rippleSpanList = [];
+
+         function removeRipples() {
+             console.log('removeRipples');
+             rippleSpanList.forEach((elem) => elem?.dom?.remove?.());
+             rippleSpanList = [];
+         }
+
+        function undoRipple() {
+            console.log('undoRipple');
+            const r = rippleSpanList.pop();
+            r?.dom?.remove?.();
+        }
+
+        function done() {
+            if (rippleSpanList.length == 0) return;
+
+            const posList = rippleSpanList.map((r) => [r.x, r.y].join(','));
+            const answers = posList.join(';');
+            console.log(answers);
+
+            fetch('/captcha/check?answer=' + answers)
+                .then(res => res.text())
+                .then(msg => {
+                    alert(msg);
+                    window.location.reload();
+                });
+        }
+
+        function refresh() {
+            window.location.reload();
+        }
+
+        function addRipples() {
+            const ripplesBtn = document.getElementById('clickable-captcha');
+            if (!ripplesBtn) return;
+
+            console.log('addRipples', rippleSpanList);
+
+            ripplesBtn.addEventListener(
+                'click',
+                _.throttle(
+                    function onRippleClick(e) {
+                        const x = e?.offsetX;
+                        const y = e?.offsetY;
+
+                        if (x > 260 || y > 260 || x < 20 || y < 20)
+                            return;
+
+                        const ripples = document.createElement('span');
+                        ripples.className = 'ripple-span';
+                        ripples.style.left = (x || 0) + 'px';
+                        ripples.style.top = (y || 0) + 'px';
+
+                        rippleSpanList.push({ x, y, dom: ripples });
+                        ripplesBtn?.appendChild?.(ripples);
+                    },
+                    300,
+                    { trailing: false },
+                ),
+            );
+        }
+
+        addRipples();
+    </script>
+</body>
+
+</html>
