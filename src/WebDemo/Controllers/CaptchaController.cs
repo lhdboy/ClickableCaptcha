@@ -34,10 +34,10 @@ namespace WebDemo.Controllers
         }
 
         /// <summary>
-        /// 获取图形验证码
+        /// 检查用户点击的图形验证码位置是否正确
         /// </summary>
-        /// <param name="dysopsia">视觉障碍模式是否打开</param>
-        /// <returns>图形验证码</returns>
+        /// <param name="answer">用户点击的坐标列表</param>
+        /// <returns>结果</returns>
         [HttpGet("[action]")]
         public async Task<ActionResult<string>> Check([FromQuery] string answer)
         {
