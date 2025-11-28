@@ -17,13 +17,8 @@ builder.Services.AddSession(options =>
 var app = builder.Build();
 app.UseSession();
 
-app.MapGet("/", async (ctx) =>
-{
-    ctx.Response.StatusCode = 200;
-    ctx.Response.ContentType = "text/html";
-    await ctx.Response.BodyWriter.WriteAsync(
-        File.ReadAllBytes($"wwwroot{Path.DirectorySeparatorChar}captcha.html"));
-});
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.MapControllers();
 

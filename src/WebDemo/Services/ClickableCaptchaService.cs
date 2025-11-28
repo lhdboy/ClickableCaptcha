@@ -1,6 +1,6 @@
-﻿using ClickableCaptcha;
-
 using Microsoft.Extensions.Caching.Distributed;
+
+using WaveSent.ClickableCaptcha;
 
 namespace WebDemo.Services
 {

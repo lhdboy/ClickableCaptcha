@@ -22,12 +22,12 @@ ClickableCaptcha是一个使用**SkiaSharp**类库的可点击图形验证码，
 
 ### 桌面浏览器
 
-![image](screenshot/pc.png)
+![image](https://github.com/lhdboy/ClickableCaptcha/blob/main/screenshot/pc.png?raw=true)
 
 ### 手机效果
 
-![image](screenshot/normal.png)
-![image](screenshot/dysopsia.png)
+![image](https://github.com/lhdboy/ClickableCaptcha/blob/main/screenshot/normal.png?raw=true)
+![image](https://github.com/lhdboy/ClickableCaptcha/blob/main/screenshot/dysopsia.png?raw=true)
 
 ## 自定义
 
@@ -40,5 +40,5 @@ ClickableCaptcha是一个使用**SkiaSharp**类库的可点击图形验证码，
 例如Linux：
 
 ```xml
-<PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.3" />
+<PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="3.119.1" />
 ```
