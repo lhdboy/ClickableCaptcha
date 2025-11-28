@@ -12,7 +12,18 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryType>git</RepositoryType>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <Description>可点击的网格图形验证码</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Fonts\NotoSansCJKsc-Bold-subset.otf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Fonts\NotoSansCJKsc-Bold-subset.otf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="..\..\LICENSE.txt">

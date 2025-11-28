@@ -46,14 +46,14 @@ namespace WaveSent.ClickableCaptcha
         /// <param name="gridCount">网格数量（gridCount * gridCount）</param>
         /// <param name="gridStrokeWidth">网格变宽宽度</param>
         /// <param name="textFontSize">默认字体大小</param>
-        /// <param name="fontFileName">字体名称，建议不要使用微软雅黑，如果绘制出来的验证码都是“口口口”那就要换成你机子里支持的字体名称</param>
+        /// <param name="fontFileName">字体路径，默认Fonts/NotoSansCJKsc-Bold-subset.otf</param>
         public CaptchaGenerate(ICaptchaQuestion[] questions,
             int gridSize = 30,
             int gridMargin = 20,
             int gridCount = 6,
             int gridStrokeWidth = 1,
             int textFontSize = 16,
-            string fontFileName = "Data/NotoSansCJKsc-Bold.otf")
+            string? fontFileName = null)
         {
             _questions = questions;
             _random = new Random();
@@ -63,7 +63,7 @@ namespace WaveSent.ClickableCaptcha
             _gridCount = gridCount;
             _gridStrokeWidth = gridStrokeWidth;
             _textFontSize = textFontSize;
-            _fontFileName = fontFileName;
+            _fontFileName = fontFileName ?? Path.Combine(AppContext.BaseDirectory, "Fonts", "NotoSansCJKsc-Bold-subset.otf");
         }
 
         public static ICaptchaQuestion[] GetDefaultQuestions()
