@@ -13,11 +13,8 @@
     <RepositoryType>git</RepositoryType>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <Description>可点击的网格图形验证码</Description>
+    <Version>1.1.0</Version>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="Fonts\NotoSansCJKsc-Bold-subset.otf" />
-  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Fonts\NotoSansCJKsc-Bold-subset.otf">
